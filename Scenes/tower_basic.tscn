@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://vsell7jdvojo"]
+
+[ext_resource type="PackedScene" uid="uid://br3a3v20jekxv" path="res://Scenes/tower.tscn" id="1_43cqo"]
+[ext_resource type="Script" uid="uid://brp8d6jssmjyv" path="res://Scripts/tower_basic.gd" id="2_m4an1"]
+[ext_resource type="Texture2D" uid="uid://dcus2mnf1agk7" path="res://graphics/towers/basic/basic tower bottom.png" id="2_uooiy"]
+[ext_resource type="Texture2D" uid="uid://drqd7mybdere0" path="res://graphics/towers/basic/basic tower top.png" id="3_m4an1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m4an1"]
+radius = 66.507515
+
+[node name="TowerBasic" instance=ExtResource("1_43cqo")]
+scale = Vector2(2, 2)
+script = ExtResource("2_m4an1")
+
+[node name="Base" parent="." index="0"]
+texture = ExtResource("2_uooiy")
+
+[node name="Turret" parent="." index="1"]
+texture = ExtResource("3_m4an1")
+
+[node name="CollisionShape2D" parent="DetectionRange" index="0"]
+shape = SubResource("CircleShape2D_m4an1")
+
+[node name="ReloadTimer" parent="." index="3"]
+wait_time = 0.6
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

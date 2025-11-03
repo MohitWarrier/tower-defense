@@ -1,0 +1,152 @@
+[gd_scene load_steps=11 format=3 uid="uid://ek7qv3mjun6v"]
+
+[ext_resource type="FontFile" uid="uid://bqm53gushpubk" path="res://graphics/ui/Digitalt.otf" id="1_2246s"]
+[ext_resource type="Script" uid="uid://pencrbw0rst6" path="res://Scripts/ui.gd" id="1_m78vo"]
+[ext_resource type="Texture2D" uid="uid://5fcgjf624a6x" path="res://graphics/ui/frame.png" id="2_q7pk6"]
+[ext_resource type="Texture2D" uid="uid://dtx2b4ht28ccs" path="res://graphics/ui/suit_hearts.png" id="3_m78vo"]
+[ext_resource type="Texture2D" uid="uid://b3k0r3etcd08f" path="res://graphics/ui/dollar.png" id="4_smcll"]
+[ext_resource type="PackedScene" uid="uid://bus4jkgtheycp" path="res://Scenes/tower_card.tscn" id="5_q7pk6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wviqb"]
+bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.21568628)
+shadow_size = 5
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdvrb"]
+bg_color = Color(0.46, 0.46, 0.46, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.3254902)
+shadow_size = 5
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jxero"]
+bg_color = Color(0.25, 0.25, 0.25, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.21960784)
+shadow_size = 5
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ryf15"]
+texture = ExtResource("2_q7pk6")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[node name="UI" type="CanvasLayer" groups=["UI"]]
+script = ExtResource("1_m78vo")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartWaveButton" type="Button" parent="Control"]
+custom_minimum_size = Vector2(240, 50)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_right = 120.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_2246s")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_wviqb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qdvrb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jxero")
+text = "Start Wave"
+
+[node name="StatsContainer" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="HealthContainer" type="PanelContainer" parent="Control/StatsContainer"]
+self_modulate = Color(0.15294118, 0.15294118, 0.15294118, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ryf15")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/StatsContainer/HealthContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/StatsContainer/HealthContainer/HBoxContainer"]
+modulate = Color(1, 0.23000002, 0.23000002, 1)
+layout_mode = 2
+texture = ExtResource("3_m78vo")
+
+[node name="Label" type="Label" parent="Control/StatsContainer/HealthContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_2246s")
+theme_override_font_sizes/font_size = 40
+text = "100"
+
+[node name="MoneyContainer" type="PanelContainer" parent="Control/StatsContainer"]
+self_modulate = Color(0.15294118, 0.15294118, 0.15294118, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ryf15")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/StatsContainer/MoneyContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/StatsContainer/MoneyContainer/HBoxContainer"]
+modulate = Color(0.83, 0.78352, 0.36519998, 1)
+layout_mode = 2
+texture = ExtResource("4_smcll")
+
+[node name="Label" type="Label" parent="Control/StatsContainer/MoneyContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_2246s")
+theme_override_font_sizes/font_size = 40
+text = "100"
+
+[node name="TowerCards" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_bottom = -20.0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TowerCards"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -180.0
+offset_right = 140.0
+grow_vertical = 0
+
+[node name="TowerCard" parent="TowerCards/HBoxContainer" instance=ExtResource("5_q7pk6")]
+layout_mode = 2
+
+[connection signal="pressed" from="Control/StartWaveButton" to="." method="_on_start_wave_button_pressed"]
