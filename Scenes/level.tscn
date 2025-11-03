@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=4 uid="uid://c4uspnxjmswqw"]
+[gd_scene load_steps=11 format=4 uid="uid://c4uspnxjmswqw"]
 
 [ext_resource type="Script" uid="uid://coqro3jlx4q6p" path="res://Scripts/level.gd" id="1_tumq0"]
 [ext_resource type="Texture2D" uid="uid://385v1i5ways2" path="res://graphics/tilesets/grass_tile_bg.png" id="3_6phgx"]
+[ext_resource type="PackedScene" uid="uid://vykdq374wp7d" path="res://Scenes/tower_blaster.tscn" id="4_0f350"]
 [ext_resource type="Texture2D" uid="uid://ddclvt0mlpvl0" path="res://graphics/tilesets/grass_paths.png" id="4_81xng"]
 [ext_resource type="PackedScene" uid="uid://ccux85d53uxn7" path="res://Scenes/player_camera.tscn" id="5_wqkje"]
 [ext_resource type="PackedScene" uid="uid://ek7qv3mjun6v" path="res://Scenes/ui.tscn" id="6_0f350"]
@@ -513,6 +514,9 @@ tile_set = SubResource("TileSet_wqkje")
 curve = SubResource("Curve2D_wqkje")
 
 [node name="Towers" type="Node" parent="."]
+
+[node name="TowerBlaster" parent="Towers" instance=ExtResource("4_0f350")]
+position = Vector2(172, 132)
 
 [node name="Bullets" type="Node" parent="."]
 

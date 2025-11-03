@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c0jioo225u8ho" path="res://Scripts/tower.gd" id="1_ndpwd"]
 
 [node name="Tower" type="Node2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_ndpwd")
 
 [node name="Base" type="Sprite2D" parent="."]

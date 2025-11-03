@@ -6,10 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://drqd7mybdere0" path="res://graphics/towers/basic/basic tower top.png" id="3_m4an1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m4an1"]
-radius = 66.507515
+radius = 65.0
 
 [node name="TowerBasic" instance=ExtResource("1_43cqo")]
-scale = Vector2(2, 2)
 script = ExtResource("2_m4an1")
 
 [node name="Base" parent="." index="0"]

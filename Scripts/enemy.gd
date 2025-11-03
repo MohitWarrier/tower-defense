@@ -22,12 +22,16 @@ func _process(delta: float) -> void:
 	
 
 func _on_area_entered(bullet: Area2D) -> void:
-	health -= 1
+	bullet.queue_free()
+	hit(1)
+
+
+func hit(damage: int) -> void:
+	health -= damage
 	flash()
 	if health <= 0:
 		Data.money += 1
 		queue_free()
-	# bullet.queue_free()
 
 
 func flash() -> void:

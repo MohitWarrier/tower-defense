@@ -14,7 +14,7 @@ var used_cells: Array[Vector2i]
 
 func _ready() -> void:
 	RenderingServer.set_default_clear_color("bdf6f5ff")
-	
+	$Towers/TowerBlaster.connect("bullet_shot", _on_bullet_shot)
 
 func _input(event: InputEvent) -> void:
 	
@@ -47,10 +47,15 @@ func _input(event: InputEvent) -> void:
 func _on_bullet_shot(pos: Vector2, angle: float, 
 		bullet_enum: Data.Bullet) -> void:
 
-	var bullet_instance = bullet_scene.instantiate()
-	bullet_instance.setup(pos, angle, bullet_enum)
-	$Bullets.add_child(bullet_instance)
+	if bullet_enum == Data.Bullet.SINGLE:
+		var bullet_instance = bullet_scene.instantiate()
+		bullet_instance.setup(pos, angle, bullet_enum)
+		$Bullets.add_child(bullet_instance)
 	
+	if bullet_enum == Data.Bullet.FIRE:
+		for enemy in get_tree().get_nodes_in_group("Enemy"):
+			if pos.distance_to(enemy.global_position) < 100:
+				enemy.hit(2)
 
 # tower preview when selected
 func _on_ui_tower_selected(tower_type: Data.Tower) -> void:
