@@ -8,13 +8,15 @@ var place_tower: bool:
 		$Background/TowerPreview.visible = value
 var selected_tower: Data.Tower
 var tower_scenes = {
-	Data.Tower.BASIC: "res://Scenes/tower_basic.tscn"
+	Data.Tower.BASIC: "res://Scenes/tower_basic.tscn",
+	Data.Tower.BLAST: "res://Scenes/tower_blaster.tscn",
+	Data.Tower.MORTAR: "res://Scenes/tower_basic.tscn"
 }
 var used_cells: Array[Vector2i]
 
 func _ready() -> void:
 	RenderingServer.set_default_clear_color("bdf6f5ff")
-	$Towers/TowerBlaster.connect("bullet_shot", _on_bullet_shot)
+
 
 func _input(event: InputEvent) -> void:
 	
