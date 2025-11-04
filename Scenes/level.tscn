@@ -502,7 +502,6 @@ script = ExtResource("1_tumq0")
 
 [node name="TowerPreview" type="Sprite2D" parent="Background"]
 modulate = Color(1, 1, 1, 0.6666667)
-scale = Vector2(2, 2)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Background"]
 z_index = -10
@@ -518,7 +517,7 @@ curve = SubResource("Curve2D_wqkje")
 
 [node name="PlayerCamera" parent="." instance=ExtResource("5_wqkje")]
 position = Vector2(56, 102)
-zoom = Vector2(1.5, 1.5)
+zoom = Vector2(2.5, 2.5)
 
 [node name="UI" parent="." instance=ExtResource("6_0f350")]
 

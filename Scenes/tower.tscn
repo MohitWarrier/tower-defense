@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://br3a3v20jekxv"]
+[gd_scene load_steps=5 format=3 uid="uid://br3a3v20jekxv"]
 
 [ext_resource type="Script" uid="uid://c0jioo225u8ho" path="res://Scripts/tower.gd" id="1_ndpwd"]
 [ext_resource type="Texture2D" uid="uid://dcus2mnf1agk7" path="res://graphics/towers/basic/basic tower bottom.png" id="2_mh5eo"]
+[ext_resource type="PackedScene" uid="uid://d1xfhhdbfsst" path="res://Scenes/tower_menu.tscn" id="3_tghyl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tghyl"]
 size = Vector2(21.5, 18)
 
-[node name="Tower" type="Node2D"]
-scale = Vector2(2, 2)
+[node name="Tower" type="Node2D" groups=["Towers"]]
 script = ExtResource("1_ndpwd")
+
+[node name="TowerMenu" parent="." instance=ExtResource("3_tghyl")]
 
 [node name="Base" type="Sprite2D" parent="."]
 texture = ExtResource("2_mh5eo")
@@ -31,6 +33,13 @@ collision_mask = 0
 position = Vector2(-0.25, 0)
 shape = SubResource("RectangleShape2D_tghyl")
 
+[node name="DelayTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="sell_pressed" from="TowerMenu" to="." method="_on_tower_menu_sell_pressed"]
+[connection signal="upgrade_pressed" from="TowerMenu" to="." method="_on_tower_menu_upgrade_pressed"]
 [connection signal="area_entered" from="DetectionRange" to="." method="_on_detection_range_area_entered"]
 [connection signal="area_exited" from="DetectionRange" to="." method="_on_detection_range_area_exited"]
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]

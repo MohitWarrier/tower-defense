@@ -8,17 +8,17 @@
 [node name="TowerMortar" instance=ExtResource("1_d0gl1")]
 script = ExtResource("2_mp20o")
 
-[node name="Base" parent="." index="0"]
+[node name="Base" parent="." index="1"]
 texture = ExtResource("2_xshoj")
 
-[node name="Turret" parent="." index="1"]
+[node name="Turret" parent="." index="2"]
 visible = false
-
-[node name="ReloadTimer" parent="." index="3"]
-wait_time = 3.0
 
 [node name="CrosshairSprite" type="Sprite2D" parent="." index="4"]
 visible = false
 texture = ExtResource("3_ndqtr")
+
+[node name="ReloadTimer" parent="." index="5"]
+wait_time = 3.0
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

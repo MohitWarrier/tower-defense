@@ -35,23 +35,24 @@ func _input(event: InputEvent) -> void:
 				used_cells.append(pos)
 				var tower = load(tower_scenes[selected_tower]).instantiate()
 				tower.position = pos * 16 + Vector2i(8,8)
+				tower.setup(selected_tower)
 				tower.connect('bullet_shot', _on_bullet_shot)
 				tower.connect('tower_clicked', _tower_options)
 				$Towers.add_child(tower)
 				place_tower = false
 				Data.money -= Data.TOWER_DATA[selected_tower]['cost']
-	# open up tower options menu when clicked
-	if event is InputEventMouseButton and event.button_mask == 1 and clicked_tower:
-		if clicked_tower.type == Data.Tower.MORTAR:
-			clicked_tower.finished_placing()
-			clicked_tower = null
-	
-	
+				
 	if event is InputEventMouseMotion and tower_menu:
 		# if clicked tower is mortar, move the crosshair
 		# to position chosen by player
 		if clicked_tower and clicked_tower.type == Data.Tower.MORTAR:
 			clicked_tower.crosshair_pos_update(pos * 16 + Vector2i(8,8))
+
+	# finish placing the mortar crosshair
+	if event is InputEventMouseButton and event.button_mask == 1 and clicked_tower:
+		if clicked_tower.type == Data.Tower.MORTAR:
+			clicked_tower.finished_placing()
+			clicked_tower = null
 
 	# place tower preview texture on mouse cursor position
 	if event is InputEventMouseMotion and place_tower:
@@ -61,6 +62,11 @@ func _input(event: InputEvent) -> void:
 	# player can cancel tower placing
 	if Input.is_action_just_pressed("Exit"):
 		place_tower = false
+		tower_menu = false
+		clicked_tower = null
+		$UI.hide_cards()
+		for tower in get_tree().get_nodes_in_group('Towers'):
+			tower.hide_ui()
 
 # handle the various types of bullets shot by towers
 func _on_bullet_shot(pos: Vector2, angle: float, 

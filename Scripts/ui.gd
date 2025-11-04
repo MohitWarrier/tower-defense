@@ -65,4 +65,7 @@ func _on_menu_toggle_button_pressed() -> void:
 	$TowerCards/TowerCardsContainer.visible = current_menu_state == MenuState.OPEN
 	
 	
-	
+func hide_cards() -> void:
+	current_menu_state = MenuState.CLOSED	
+	change_button_texture(current_menu_state)
+	$TowerCards/TowerCardsContainer.visible = current_menu_state == MenuState.OPEN

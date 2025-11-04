@@ -20,7 +20,7 @@ const TOWER_DATA: Dictionary = {
 		"name": "Blaster",
 		"cost": 30,
 		"upgrade_cost": 50,
-		"reload_time": 1.5,
+		"reload_time": 2,
 		"bullet": Bullet.FIRE,
 		"thumbnail": "res://graphics/ui/tower thumbnails/blaster.png",
 		"scene": "res://scenes/towers/blaster_tower.tscn"
@@ -30,7 +30,7 @@ const TOWER_DATA: Dictionary = {
 		"name": "Mortar",
 		"cost": 30,
 		"upgrade_cost": 60,
-		"reload_time": 2.0,
+		"reload_time": 3.0,
 		"bullet": Bullet.MORTAR_EXPLOSION,
 		"thumbnail": "res://graphics/ui/tower thumbnails/mortar.png",
 		"scene": "res://scenes/towers/mortar_tower.tscn"
@@ -40,7 +40,7 @@ const TOWER_DATA: Dictionary = {
 const UPGRADE_DATA: Dictionary = {
 	Tower.BASIC: {"reload_time": 0.6, "bullet": Bullet.SINGLE},
 	Tower.BLAST: {"reload_time": 1.2, "bullet": Bullet.FIRE},
-	Tower.MORTAR: {"reload_time": 1.5, "bullet": Bullet.ICE_EXPLOSION},
+	Tower.MORTAR: {"reload_time": 2, "bullet": Bullet.ICE_EXPLOSION},
 }
 
 const ENEMY_WAVES: Dictionary = {
@@ -75,12 +75,13 @@ const ENEMY_DATA: Dictionary = {
 	},
 }
 
-var money = 50:
+var money = 500:
 	set(value):
 		money = value
 		get_tree().get_first_node_in_group('UI').update_stats(money, health)
 		for tower_card in get_tree().get_nodes_in_group('TowerCard'):
 			tower_card.toggle_active(money)
+			
 var health: int = 20:
 	set(value):
 		health = value
