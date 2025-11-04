@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://hqsncaw7fucr" path="res://graphics/explosion animations/fire explosion.png" id="4_076jl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_076jl"]
-radius = 30.0
+radius = 25.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x4va5"]
 particles_animation = true
@@ -59,7 +59,7 @@ texture = ExtResource("2_qcots")
 shape = SubResource("CircleShape2D_076jl")
 
 [node name="ReloadTimer" parent="." index="3"]
-wait_time = 2.5
+wait_time = 2.0
 
 [node name="Particles" type="Node2D" parent="." index="4"]
 

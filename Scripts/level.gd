@@ -2,15 +2,18 @@ extends Node2D
 
 var enemy_scene: PackedScene = preload("res://Scenes/enemy.tscn")
 var bullet_scene: PackedScene = preload("res://Scenes/bullet.tscn")
+var explosion_scene: PackedScene = preload("res://Scenes/explosion.tscn")
 var place_tower: bool:
 	set(value):
 		place_tower = value
 		$Background/TowerPreview.visible = value
 var selected_tower: Data.Tower
+var clicked_tower: Tower
+var tower_menu: bool
 var tower_scenes = {
 	Data.Tower.BASIC: "res://Scenes/tower_basic.tscn",
 	Data.Tower.BLAST: "res://Scenes/tower_blaster.tscn",
-	Data.Tower.MORTAR: "res://Scenes/tower_basic.tscn"
+	Data.Tower.MORTAR: "res://Scenes/tower_mortar.tscn"
 }
 var used_cells: Array[Vector2i]
 
@@ -33,9 +36,22 @@ func _input(event: InputEvent) -> void:
 				var tower = load(tower_scenes[selected_tower]).instantiate()
 				tower.position = pos * 16 + Vector2i(8,8)
 				tower.connect('bullet_shot', _on_bullet_shot)
+				tower.connect('tower_clicked', _tower_options)
 				$Towers.add_child(tower)
 				place_tower = false
 				Data.money -= Data.TOWER_DATA[selected_tower]['cost']
+	# open up tower options menu when clicked
+	if event is InputEventMouseButton and event.button_mask == 1 and clicked_tower:
+		if clicked_tower.type == Data.Tower.MORTAR:
+			clicked_tower.finished_placing()
+			clicked_tower = null
+	
+	
+	if event is InputEventMouseMotion and tower_menu:
+		# if clicked tower is mortar, move the crosshair
+		# to position chosen by player
+		if clicked_tower and clicked_tower.type == Data.Tower.MORTAR:
+			clicked_tower.crosshair_pos_update(pos * 16 + Vector2i(8,8))
 
 	# place tower preview texture on mouse cursor position
 	if event is InputEventMouseMotion and place_tower:
@@ -46,6 +62,7 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Exit"):
 		place_tower = false
 
+# handle the various types of bullets shot by towers
 func _on_bullet_shot(pos: Vector2, angle: float, 
 		bullet_enum: Data.Bullet) -> void:
 
@@ -58,13 +75,25 @@ func _on_bullet_shot(pos: Vector2, angle: float,
 		for enemy in get_tree().get_nodes_in_group("Enemy"):
 			if pos.distance_to(enemy.global_position) < 100:
 				enemy.hit(2)
-
+	
+	if bullet_enum == Data.Bullet.MORTAR_EXPLOSION:
+		var explosion = explosion_scene.instantiate()
+		explosion.setup(pos)
+		$Bullets.add_child(explosion)
+		
 # tower preview when selected
 func _on_ui_tower_selected(tower_type: Data.Tower) -> void:
 	place_tower = true
 	selected_tower = tower_type
 	$Background/TowerPreview.texture = \
 	load(Data.TOWER_DATA[tower_type]["thumbnail"])
+
+
+func _tower_options(tower: Tower) -> void:
+	clicked_tower = tower
+	tower_menu = true
+	if tower.type == Data.Tower.MORTAR:
+		tower.show_crosshair()
 
 
 func _on_ui_wave_started() -> void:

@@ -1,5 +1,8 @@
 extends Tower
 
+func _ready() -> void:
+	type = Data.Tower.BLAST
+
 
 func _on_reload_timer_timeout() -> void:
 	if enemies.size() > 0:

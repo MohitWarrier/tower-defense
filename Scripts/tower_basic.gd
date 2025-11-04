@@ -1,5 +1,9 @@
 extends Tower
 
+func _ready() -> void:
+	type = Data.Tower.BASIC
+
+
 func _process(_delta: float) -> void:
 	if enemies.size() > 0:
 		$Turret.look_at(enemies[0].global_position)

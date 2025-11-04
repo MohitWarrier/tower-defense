@@ -1,12 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://br3a3v20jekxv"]
+[gd_scene load_steps=4 format=3 uid="uid://br3a3v20jekxv"]
 
 [ext_resource type="Script" uid="uid://c0jioo225u8ho" path="res://Scripts/tower.gd" id="1_ndpwd"]
+[ext_resource type="Texture2D" uid="uid://dcus2mnf1agk7" path="res://graphics/towers/basic/basic tower bottom.png" id="2_mh5eo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tghyl"]
+size = Vector2(21.5, 18)
 
 [node name="Tower" type="Node2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_ndpwd")
 
 [node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("2_mh5eo")
 
 [node name="Turret" type="Sprite2D" parent="."]
 
@@ -18,5 +23,14 @@ collision_layer = 0
 [node name="ReloadTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="ClickArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+position = Vector2(-0.25, 0)
+shape = SubResource("RectangleShape2D_tghyl")
+
 [connection signal="area_entered" from="DetectionRange" to="." method="_on_detection_range_area_entered"]
 [connection signal="area_exited" from="DetectionRange" to="." method="_on_detection_range_area_exited"]
+[connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]

@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://bvbtf3ba6dxhi"]
+
+[ext_resource type="Texture2D" uid="uid://bngxdi2wdjkr1" path="res://graphics/explosion animations/mortar explosion.png" id="1_a801j"]
+[ext_resource type="Script" uid="uid://cd7yh6y68iyln" path="res://Scripts/explosion.gd" id="2_4okmj"]
+
+[sub_resource type="Animation" id="Animation_k2xjm"]
+resource_name = "Explosion"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.16666666, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit_enemies"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_bvnfy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_61lnk"]
+_data = {
+&"Explosion": SubResource("Animation_k2xjm"),
+&"RESET": SubResource("Animation_bvnfy")
+}
+
+[node name="Explosion" type="Sprite2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_a801j")
+hframes = 5
+script = ExtResource("2_4okmj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_61lnk")
+}
+speed_scale = 2.0
