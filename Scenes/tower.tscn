@@ -38,6 +38,8 @@ wait_time = 0.5
 one_shot = true
 autostart = true
 
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="sell_pressed" from="TowerMenu" to="." method="_on_tower_menu_sell_pressed"]
 [connection signal="upgrade_pressed" from="TowerMenu" to="." method="_on_tower_menu_upgrade_pressed"]
 [connection signal="area_entered" from="DetectionRange" to="." method="_on_detection_range_area_entered"]

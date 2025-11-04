@@ -14,7 +14,10 @@ func finished_placing() -> void:
 
 
 func _on_reload_timer_timeout() -> void:
+	$ShootAnimation.show()
+	$ShootAnimation.play("default")
 	# create explosion around the crosshair
+	await $ShootAnimation.animation_finished
 	bullet_shot.emit($CrosshairSprite.global_position, 0, bullet_type)
 
 
